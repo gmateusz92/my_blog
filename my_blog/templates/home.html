@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+
+<style>
+.content {
+  max-width: 500px;
+  margin: auto;
+}
+</style>
+
+<a href="{% url 'add_topic' %}">ADD TOPIC<br>
+
+{% for topic in topics %}
+ <div class="content">
+<a href="{% url 'topic' topic.id %}">{{ topic.title }}<br>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}

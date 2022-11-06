@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+
+ <p>Temat: {{ topic }}</p>
+ <p>Wpisy:</p>
+{{ topic.description }}<br>
+
+<a href="{% url 'edit_topic' topic.id %}">Edit topic<br>
+<a href="{}">Delete entry<br>
+
+{% endblock %}
