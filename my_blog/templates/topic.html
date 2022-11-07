@@ -5,7 +5,12 @@
  <p>Wpisy:</p>
 {{ topic.description }}<br>
 
+{% for comment in comments %}
+
+{{ comment }}
+{% endfor %}
+
 <a href="{% url 'edit_topic' topic.id %}">Edit topic<br>
 <a href="{}">Delete entry<br>
-
+<a href="{% url 'add_comment' topic.id %}">Add comment<br>
 {% endblock %}

@@ -1,8 +1,9 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, AuthForm
 #from .models import Person
+from django.contrib import messages
 
 def register_user(request):
     if request.method == "POST":
@@ -19,8 +20,22 @@ def register_user(request):
         form = RegisterForm
     return render(request, 'accounts/register.html', {'form': form})
 
-def login_user():
-    pass
+def login_user(request):
+    if request.method == 'POST':
+        # AuthenticationForm_can_also_be_used__
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            form = login(request, user)
+            messages.success(request, f' welcome {username} !!')
+            return redirect('home')
+        else:
+            messages.info(request, f'account done not exit plz sign in')
+    form = AuthForm
+    return render(request, 'accounts/login.html', {'form': form, 'title': 'log in'})
 
-def logout_user():
-    pass
+def logout_user(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect('home')
