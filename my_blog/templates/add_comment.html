@@ -1,5 +1,5 @@
 <div class="container">
-    <form method="POST">
+    <form action="{% url 'add_comment' topicc.id %}" method="POST">
       <fieldset>
         <legend>Form</legend>
         {% csrf_token %}

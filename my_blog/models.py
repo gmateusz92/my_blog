@@ -14,11 +14,12 @@ class Topics(models.Model):
         return self.title
 
 class Comment(models.Model):
-    post = models.ForeignKey(Topics, on_delete=models.CASCADE)
-    body = models.TextField(max_length=200, null=True)
+
+    topic = models.ForeignKey(Topics, on_delete=models.CASCADE, null=True)
+    body = models.TextField()
     #commentator = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
 
     class Meta:
         verbose_name_plural = 'comments'

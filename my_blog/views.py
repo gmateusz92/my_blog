@@ -43,9 +43,9 @@ def add_comment(request, topic_id):
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save(commit=False)# a metody save() dołączamy argument commit=False (patrz wiersz ), aby nakazać Django utworzenie nowego obiektu wpisu i jego przechowywanie w zmiennej new_entry, ale jeszcze bez zapisywania w bazie danych
-            comment.topic = topic #Atrybutowi new_entry egzemplarza topic przypisujemy temat pobrany z bazydanych na początku kodu funkcji (patrz wiersz ), a następnie wywołujemysave() bez argumentów. W ten sposób wpis zostanie zapisany w bazie danychwraz z przypisanym mu prawidłowym tematem
-            comment.save()
+            add_comment = form.save(commit=False)# a metody save() dołączamy argument commit=False (patrz wiersz ), aby nakazać Django utworzenie nowego obiektu wpisu i jego przechowywanie w zmiennej new_entry, ale jeszcze bez zapisywania w bazie danych
+            add_comment.topic = topic #Atrybutowi new_entry egzemplarza topic przypisujemy temat pobrany z bazydanych na początku kodu funkcji (patrz wiersz ), a następnie wywołujemysave() bez argumentów. W ten sposób wpis zostanie zapisany w bazie danychwraz z przypisanym mu prawidłowym tematem
+            add_comment.save()
             return redirect('topic', topic_id=topic_id)
     return render(request, 'add_comment.html', {'form': form, 'topic': topic})
 
