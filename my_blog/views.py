@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, redirect
-from .models import Topics
-from .forms import TopicForm, CommentForm
+from .models import Topics, Calculator
+from .forms import TopicForm, CommentForm, CalculateForm
 
 def home(request):
     topics = Topics.objects.all()
@@ -44,8 +44,20 @@ def add_comment(request, topic_id):
         form = CommentForm(request.POST)
         if form.is_valid():
             add_comment = form.save(commit=False)# a metody save() dołączamy argument commit=False (patrz wiersz ), aby nakazać Django utworzenie nowego obiektu wpisu i jego przechowywanie w zmiennej new_entry, ale jeszcze bez zapisywania w bazie danych
-            add_comment.topic = topic #Atrybutowi new_entry egzemplarza topic przypisujemy temat pobrany z bazydanych na początku kodu funkcji (patrz wiersz ), a następnie wywołujemysave() bez argumentów. W ten sposób wpis zostanie zapisany w bazie danychwraz z przypisanym mu prawidłowym tematem
+            add_comment.topic = topic #Atrybutowi add_comment egzemplarza topic przypisujemy temat pobrany z bazydanych na początku kodu funkcji (patrz wiersz ), a następnie wywołujemysave() bez argumentów. W ten sposób wpis zostanie zapisany w bazie danychwraz z przypisanym mu prawidłowym tematem
             add_comment.save()
             return redirect('topic', topic_id=topic_id)
     return render(request, 'add_comment.html', {'form': form, 'topic': topic})
 
+def calculate(request):
+    calc_form = CalculateForm(request.POST)
+    if request.method == 'POST':
+        if calc_form.is_valid():
+            instance = calc_form.save(commit=False)
+            instance.calculator = do_calc(instance.whatever0, instance.whatever1)
+            instance.save()
+            return redirect('home')
+    else:
+        calc_form = CalculateForm()
+
+    return render(request, 'calculate.html', {'calc_form': calc_form})

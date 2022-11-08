@@ -26,3 +26,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.body
+
+class Calculator(models.Model):
+
+    value_1 = models.IntegerField()
+    value_2 = models.IntegerField()

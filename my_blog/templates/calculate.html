@@ -1,0 +1,18 @@
+<div class="container">
+    <form method="POST">
+      <fieldset>
+        <legend>Form</legend>
+        {% csrf_token %}
+        {{ form.as_p }}
+             <button type="submit" name="add">ADD</button>
+          <button type="submit" name="sub">SUB</button>
+          <button type="submit" name="mul">MUL</button>
+          <button type="submit" name="div">DIV</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </fieldset>
+    </form>
+</div>
+
+<br/>
+      <br/>
+       <h3>Result:  {{ result }}</h3>
